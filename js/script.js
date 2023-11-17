@@ -16,6 +16,8 @@ const guessMessage = document.querySelector(".message");
 const playAgainButton = document.querySelector(".play-again");
 // Dummy word for guessing game
 const word = "magnolia";
+// This array will contain all the letters the player guesses
+const guessedLetters = [];
 
 // Call the function and pass it the word variable as the argument.
 // You should see 8 ● symbols on the screen, one for each letter in the word “magnolia.”
@@ -23,12 +25,10 @@ const word = "magnolia";
 const wordProgressUpdater = function (word) {
   const array = [];
   for (let letter of word) {
-    console.log(letter);
     array.push("●");
   }
   wordInProgress.innerText = array.join("");
 };
-
 wordProgressUpdater(word);
 
 // Because you’re working with a form, you want to prevent the default behavior of clicking a button,
@@ -39,4 +39,27 @@ guessButton.addEventListener("click", function (e) {
   const guess = guessInput.value;
   console.log(guess);
   guessInput.value = "";
+  guessMessage.innerText = "";
+  inputValidator(guess);
 });
+
+// Use regex to ensure the input is an english letter.
+// Still inside the function, use a conditional block to check for different scenarios.
+// First, check if the input is empty. Then, check if the player has entered more than one letter.
+// Finally, check if they’ve entered a character that doesn’t match the regular expression pattern.
+// Hint: You’ll need the .match() method here. Each condition should have a message directing the player on what to input.
+// If all the other conditions aren’t met, the input is a letter, which is what you’re looking for! Return the input.
+const inputValidator = function (input) {
+  const acceptedLetter = /[a-zA-Z]/;
+  if (input === "") {
+    guessMessage.innerText = "Please input a letter.";
+  } else if (input.length > 1) {
+    guessMessage.innerText = "Please input only one letter.";
+  } else if (!input.match(acceptedLetter)) {
+    guessMessage.innerText = "Please input a valid letter.";
+  } else {
+    return input;
+  }
+};
+
+const makeGuess = function (letter) {};
