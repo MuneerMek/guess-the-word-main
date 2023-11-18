@@ -37,10 +37,12 @@ wordProgressUpdater(word);
 guessButton.addEventListener("click", function (e) {
   e.preventDefault();
   const guess = guessInput.value;
-  console.log(guess);
   guessInput.value = "";
   guessMessage.innerText = "";
-  inputValidator(guess);
+  validGuess = inputValidator(guess);
+  if (validGuess !== undefined) {
+    makeGuess(validGuess);
+  }
 });
 
 // Use regex to ensure the input is an english letter.
@@ -62,4 +64,13 @@ const inputValidator = function (input) {
   }
 };
 
-const makeGuess = function (letter) {};
+const makeGuess = function (letter) {
+  letter = letter.toUpperCase();
+  if (!guessedLetters.includes(letter)) {
+    guessedLetters.push(letter);
+  } else {
+    guessMessage.innerText =
+      "Letter has been guessed, please input a new letter.";
+  }
+  console.log(guessedLetters);
+};
