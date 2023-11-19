@@ -22,18 +22,18 @@ const guessedLetters = [];
 // Call the function and pass it the word variable as the argument.
 // You should see 8 ● symbols on the screen, one for each letter in the word “magnolia.”
 // Hint: You’ll need to use an array and then join it back to a string using the .join("") method.
-const wordProgressUpdater = function (word) {
+const placeholder = function (word) {
   const array = [];
   for (let letter of word) {
     array.push("●");
   }
   wordInProgress.innerText = array.join("");
 };
-wordProgressUpdater(word);
+placeholder(word);
 
 // Because you’re working with a form, you want to prevent the default behavior of clicking a button,
 // the form submitting, and then reloading the page. To prevent this reloading behavior,
-// add this line of code at the top of the callback function: e.preventDefault();.
+// add this line of code at the top of the callback function: e.preventDefault();
 guessButton.addEventListener("click", function (e) {
   e.preventDefault();
   const guess = guessInput.value;
@@ -68,9 +68,42 @@ const makeGuess = function (letter) {
   letter = letter.toUpperCase();
   if (!guessedLetters.includes(letter)) {
     guessedLetters.push(letter);
+    playerGuessListUpdater();
+    wordProgressUpdater(guessedLetters);
   } else {
     guessMessage.innerText =
       "Letter has been guessed, please input a new letter.";
   }
   console.log(guessedLetters);
+};
+
+const playerGuessListUpdater = function () {
+  playerGuessList.innerHTML = "";
+  for (let letter of guessedLetters) {
+    const li = document.createElement("li");
+    li.innerText = letter;
+    playerGuessList.append(li);
+  }
+};
+
+const wordProgressUpdater = function (guessedLetters) {
+  const wordUpper = word.toUpperCase();
+  const wordArray = wordUpper.split("");
+  const wordProgress = [];
+  for (let letter of wordArray) {
+    if (guessedLetters.includes(letter)) {
+      wordProgress.push(letter);
+    } else {
+      wordProgress.push("●");
+    }
+  }
+  wordInProgress.innerText = wordProgress.join("");
+  winCheck();
+};
+
+const winCheck = function () {
+  if (wordInProgress.innerText === word.toUpperCase()) {
+    guessMessage.classList.add("win");
+    guessMessage.innerHTML = `<p class="highlight">You guessed the word correctly! Congrats!</p>`;
+  }
 };
