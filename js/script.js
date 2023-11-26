@@ -18,6 +18,7 @@ const playAgainButton = document.querySelector(".play-again");
 const word = "magnolia";
 // This array will contain all the letters the player guesses
 const guessedLetters = [];
+const remainingGuesses = 8;
 
 // Call the function and pass it the word variable as the argument.
 // You should see 8 ● symbols on the screen, one for each letter in the word “magnolia.”
@@ -99,6 +100,10 @@ const wordProgressUpdater = function (guessedLetters) {
   }
   wordInProgress.innerText = wordProgress.join("");
   winCheck();
+};
+
+const guessCountAdjust = function (guess) {
+  word = word.toUpperCase();
 };
 
 const winCheck = function () {
