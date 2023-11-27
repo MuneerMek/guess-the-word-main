@@ -112,5 +112,3 @@ const winCheck = function () {
     guessMessage.innerHTML = `<p class="highlight">You guessed the word correctly! Congrats!</p>`;
   }
 };
-
-// Test commit
