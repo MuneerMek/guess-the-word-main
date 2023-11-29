@@ -18,7 +18,8 @@ const playAgainButton = document.querySelector(".play-again");
 const word = "magnolia";
 // This array will contain all the letters the player guesses
 const guessedLetters = [];
-const remainingGuesses = 8;
+// Guesses left for player, displayed beneath word
+let remainingGuesses = 8;
 
 // Call the function and pass it the word variable as the argument.
 // You should see 8 ● symbols on the screen, one for each letter in the word “magnolia.”
@@ -70,6 +71,7 @@ const makeGuess = function (letter) {
   if (!guessedLetters.includes(letter)) {
     guessedLetters.push(letter);
     playerGuessListUpdater();
+    guessCountAdjust(letter);
     wordProgressUpdater(guessedLetters);
   } else {
     guessMessage.innerText =
@@ -103,7 +105,20 @@ const wordProgressUpdater = function (guessedLetters) {
 };
 
 const guessCountAdjust = function (guess) {
-  word = word.toUpperCase();
+  const wordUpper = word.toUpperCase();
+  if (wordUpper.includes(guess)) {
+    guessMessage.innerText = `Nice guess!`;
+  } else {
+    guessMessage.innerText = `Word does not contain "${guess}"`;
+    remainingGuesses -= 1;
+  }
+  if (remainingGuesses === 0) {
+    remainingGuessCount.innerText = `You're all out of guesses! The word was "${wordUpper}", try again next time!`;
+  } else if (remainingGuesses === 1) {
+    remainingGuessCountSpan.innerText = `${remainingGuesses} guess`;
+  } else {
+    remainingGuessCountSpan.innerText = `${remainingGuesses} guesses`;
+  }
 };
 
 const winCheck = function () {
@@ -112,5 +127,3 @@ const winCheck = function () {
     guessMessage.innerHTML = `<p class="highlight">You guessed the word correctly! Congrats!</p>`;
   }
 };
-
-// Test commit 4
