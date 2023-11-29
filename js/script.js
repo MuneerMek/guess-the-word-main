@@ -15,11 +15,23 @@ const guessMessage = document.querySelector(".message");
 // Hidden by default, will appear when game is finished
 const playAgainButton = document.querySelector(".play-again");
 // Dummy word for guessing game
-const word = "magnolia";
+let word = "magnolia";
 // This array will contain all the letters the player guesses
 const guessedLetters = [];
 // Guesses left for player, displayed beneath word
 let remainingGuesses = 8;
+// Function to determine word from api
+const getWord = async function () {
+  const res = await fetch(
+    `https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt`
+  );
+  const data = await res.text();
+  const wordArray = data.split("\n");
+  const randomIndex = Math.floor(Math.random() * wordArray.length);
+  const randomWord = wordArray[randomIndex].trim();
+  word = randomWord;
+  placeholder(word);
+};
 
 // Call the function and pass it the word variable as the argument.
 // You should see 8 ● symbols on the screen, one for each letter in the word “magnolia.”
@@ -31,7 +43,7 @@ const placeholder = function (word) {
   }
   wordInProgress.innerText = array.join("");
 };
-placeholder(word);
+getWord();
 
 // Because you’re working with a form, you want to prevent the default behavior of clicking a button,
 // the form submitting, and then reloading the page. To prevent this reloading behavior,
