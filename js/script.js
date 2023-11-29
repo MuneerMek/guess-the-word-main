@@ -89,7 +89,6 @@ const makeGuess = function (letter) {
     guessMessage.innerText =
       "Letter has been guessed, please input a new letter.";
   }
-  console.log(guessedLetters);
 };
 
 const playerGuessListUpdater = function () {
