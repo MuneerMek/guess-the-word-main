@@ -157,7 +157,7 @@ const startOver = function () {
 playAgainButton.addEventListener("click", function () {
   guessMessage.classList.remove("win");
   guessMessage.innerText = "";
-  remainingGuesses = 5;
+  remainingGuesses = 7;
   guessedLetters = [];
   remainingGuessCountSpan.innerText = `${remainingGuesses} guesses`;
   getWord();
