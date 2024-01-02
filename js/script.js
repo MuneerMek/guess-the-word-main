@@ -19,7 +19,7 @@ let word = "magnolia";
 // This array will contain all the letters the player guesses
 let guessedLetters = [];
 // Guesses left for player, displayed beneath word
-let remainingGuesses = 5;
+let remainingGuesses = 7;
 // Form label
 const formLabel = document.querySelector(".guess-form label");
 
